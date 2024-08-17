@@ -1,0 +1,12 @@
+url: https://www.youtube.com/watch?v=awcPYZuD1nU
+
+out_dir: output
+
+# 1080, 720, 480, 360, 240, 144
+resolution: 1080
+
+# 出力ファイルの拡張子設定
+ext: "webm"
+
+# 動画と音声を合成する場合 (1080p以上限定) (0: 合成しない, 1: 合成する)
+concat_video_and_audio: 1

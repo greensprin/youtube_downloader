@@ -90,11 +90,11 @@ class YoutubeDonwloader:
         if (self.resolution >= 1080 and self.concat_video_and_audio == 1):
             print("[INFO] 動画と音声を合成中...")
 
-            cmd = f"ffmpeg -i {self.out_dir}/video.webm \
+            cmd = f"ffmpeg -i {self.out_dir}/video.{self.ext} \
                            -i {self.out_dir}/audio.mp3 \
                            -c copy \
                            -y \
-                           {self.out_dir}/video.mp4"
+                           {self.out_dir}/out.mp4"
 
             print(re.sub("\s+", " ", cmd)) # コード見やすいように改行や空白入れているので、コマンドライン表示時には削除する
             subprocess.run(cmd)

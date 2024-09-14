@@ -7,9 +7,9 @@ def get_frame(time):
 
     hour   = int(time_sp[0])
     minute = int(time_sp[1])
-    second = int(time_sp[2])
+    second = float(time_sp[2])
 
-    frame = (hour * (60**2) + minute * 60 + second) * 30
+    frame = int((hour * (60**2) + minute * 60 + second) * 30)
 
     return frame
 
@@ -63,16 +63,18 @@ def gen_exo_format(movie_path, start_frame, end_frame, play_pos, num):
 
 if __name__ == "__main__":
     # 動画のパスは絶対パスで指定する
-    movie_path = r"..\output\out.mp4"
+    movie_path = sys.argv[1]
     movie_path = os.path.abspath(movie_path)
     # カット箇所指定のテキストファイル
-    timetable  = "input/timetable.txt"
+    timetable  = sys.argv[2]
     play_pos   = 0
 
-    if (os.path.exists("output") == False):
-        os.makedirs("output")
+    out_file = sys.argv[3]
+    out_dir = os.path.dirname(out_file)
+    if (os.path.exists(out_dir) == False):
+        os.makedirs(out_dir)
 
-    with open("output/output.exo", "w", encoding="shift-jis", errors="ignore") as fw:
+    with open(out_file, "w", encoding="shift-jis", errors="ignore") as fw:
         # headerを記述
         header = f'''[exedit]
                      width=1920
@@ -93,17 +95,17 @@ if __name__ == "__main__":
                 start_time = line_sp[0]
                 end_time   = line_sp[2]
                 # music_name = " ".join(line_sp[3:])
-                print(start_time, end_time) # , music_name)
+                # print(start_time, end_time) # , music_name)
 
                 start_frame = get_frame(start_time) + 1
                 end_frame   = get_frame(end_time)
-                print(start_frame, end_frame)
+                # print(start_frame, end_frame)
 
                 exo_word = gen_exo_format(movie_path, start_frame, end_frame, play_pos, i*2)
-                print(exo_word)
+                # print(exo_word)
 
                 fw.write(exo_word)
 
                 # 再生位置を移動する
                 play_pos += (end_frame - start_frame)
-                print(play_pos)
+                # print(play_pos)

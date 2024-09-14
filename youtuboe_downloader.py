@@ -4,6 +4,7 @@
 # https://pytubefix.readthedocs.io/en/latest/index.html
 
 import os
+import sys
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
 import yaml
@@ -12,13 +13,13 @@ import subprocess
 import shutil
 
 class YoutubeDonwloader:
-    def __init__(self):
+    def __init__(self, url):
         # 設定ファイル読み込み
         with open("config.yaml", "r", encoding="utf-8", errors="ignore") as f:
             config = yaml.load(f, Loader=yaml.SafeLoader)
 
         # 各種設定取得
-        self.url                    = config["url"]
+        self.url                    = url
         self.out_dir                = config["out_dir"]
         self.resolution             = config["resolution"]
         self.ext                    = config["ext"]
@@ -105,5 +106,6 @@ class YoutubeDonwloader:
             f.write(f"{title}\n")
 
 if __name__ == "__main__":
-    youtube_downloader = YoutubeDonwloader()
+    url = sys.argv[1]
+    youtube_downloader = YoutubeDonwloader(url)
     youtube_downloader.run()
